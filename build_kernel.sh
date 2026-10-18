@@ -78,7 +78,11 @@ if [ "$ENABLE_KSU" -eq 1 ]; then
     echo "[*] Downloading and running ReSukiSU remote setup script..."
     # Pinned to v4.2.0-rc1: upstream main now points at BakaSU (rc3) which requires a newer
     # susfs than this repo carries (susfs_compat.mk aborts the build).
-    curl -LSs "https://raw.githubusercontent.com/ReSukiSU/ReSukiSU/v4.2.0-rc1/kernel/setup.sh" | bash -s v4.2.0-rc1
+    # Use v4.2.0-rc3: it defines ksu_handle_post_execveat_sucompat (added in rc2, commit f1ae2ceb),
+    # which this kernel tree calls from fs/exec.c:1916 under CONFIG_KSU_SUSFS.
+    # rc3 also ships the newer susfs_compat.mk; upstream main now points at BakaSU and aborts with
+    # "susfs has NOT update with latest KernelSU source".
+    curl -LSs "https://raw.githubusercontent.com/ReSukiSU/ReSukiSU/v4.2.0-rc3/kernel/setup.sh" | bash -s v4.2.0-rc3
     echo "[+] KernelSU setup finished."
 fi
 
