@@ -76,7 +76,9 @@ if [ "$ENABLE_KSU" -eq 1 ]; then
     echo " [*] Initializing KernelSU (ReSukiSU) Setup"
     echo "==========================================="
     echo "[*] Downloading and running ReSukiSU remote setup script..."
-    curl -LSs "https://raw.githubusercontent.com/ReSukiSU/ReSukiSU/main/kernel/setup.sh" | bash
+    # Pinned to v4.2.0-rc1: upstream main now points at BakaSU (rc3) which requires a newer
+    # susfs than this repo carries (susfs_compat.mk aborts the build).
+    curl -LSs "https://raw.githubusercontent.com/ReSukiSU/ReSukiSU/v4.2.0-rc1/kernel/setup.sh" | bash -s v4.2.0-rc1
     echo "[+] KernelSU setup finished."
 fi
 
