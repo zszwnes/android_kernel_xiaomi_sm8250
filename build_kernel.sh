@@ -255,6 +255,7 @@ build_target() {
             -e BINDER_PRIO \
             -d REKERNEL \
             -d REKERNEL_NETWORK
+            -e USB_PD_PPS_MODE
     fi
 
     # 4. AOSP configurations
@@ -264,6 +265,8 @@ build_target() {
             -e REKERNEL \
             -e REKERNEL_NETWORK
     fi
+
+    echo "[*] EXPERIMENT t-apt-pps: enable PPS support in PD engine"
 
     # We always need to re-evaluate dependencies because BBG is injected unconditionally
     echo "[*] Updating config (make olddefconfig)..."
