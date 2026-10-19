@@ -255,6 +255,7 @@ build_target() {
             -e BINDER_PRIO \
             -d REKERNEL \
             -d REKERNEL_NETWORK
+            -e HZ_300 -d HZ_250
     fi
 
     # 4. AOSP configurations
@@ -264,6 +265,8 @@ build_target() {
             -e REKERNEL \
             -e REKERNEL_NETWORK
     fi
+
+    echo "[*] EXPERIMENT t-apt-hz: timer tick 300Hz (ROM uses 250) to test irq/PD timing hypothesis"
 
     # We always need to re-evaluate dependencies because BBG is injected unconditionally
     echo "[*] Updating config (make olddefconfig)..."
