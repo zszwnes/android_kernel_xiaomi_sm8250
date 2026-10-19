@@ -254,7 +254,9 @@ build_target() {
             -e MILLET_HS \
             -e BINDER_PRIO \
             -d REKERNEL \
-            -d REKERNEL_NETWORK
+            -d REKERNEL_NETWORK \
+            -e HZ_300 \
+            -d HZ_250
     fi
 
     # 4. AOSP configurations
@@ -265,9 +267,13 @@ build_target() {
             -e REKERNEL_NETWORK
     fi
 
+    echo "[*] EXPERIMENT t-apt2-hz: tick 300Hz instead of 250Hz"
     # We always need to re-evaluate dependencies because BBG is injected unconditionally
     echo "[*] Updating config (make olddefconfig)..."
     make "${MAKE_OPTS[@]}" olddefconfig
+    echo "=== CONFIG SNIPPET ==="
+    grep -E '^CONFIG_(USB_PD|HZ|QPNP_SMB5)' "${OUT_DIR}/.config" || true
+    echo "=== END SNIPPET ==="
 
     # ----------------------------------------------------
     # Compilation
