@@ -255,6 +255,8 @@ build_target() {
             -e BINDER_PRIO \
             -d REKERNEL \
             -d REKERNEL_NETWORK
+            -e USB_PD_POLICY_DAGU
+            -d USB_PD_POLICY
     fi
 
     # 4. AOSP configurations
@@ -264,6 +266,8 @@ build_target() {
             -e REKERNEL \
             -e REKERNEL_NETWORK
     fi
+
+    echo "[*] EXPERIMENT t-apt-dagu: PD engine = Xiaomi dagu variant (ROM uses this); disables generic policy"
 
     # We always need to re-evaluate dependencies because BBG is injected unconditionally
     echo "[*] Updating config (make olddefconfig)..."
